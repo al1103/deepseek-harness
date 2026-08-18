@@ -2,13 +2,13 @@
 
 [English](README.md) | 中文
 
-Claude Code／Codex hook 协议格式（wire format）的**共享核心**。它不是 Cordis 插件：不注册也不注入任何内容。它是一个**库**，提供两个桥接插件（`@deepseek-ai/dsh-hooks-claude-code`、`@deepseek-ai/dsh-hooks-codex`）导入的方言无关原语，使两者都无需重复实现协议中相同的部分。
+Codex hook 协议格式（wire format）的**共享核心**。它不是 Cordis 插件：不注册也不注入任何内容。它是一个**库**，提供 Codex 桥接插件（`@deepseek-ai/dsh-hooks-codex`）导入的方言无关原语。
 
 Codex 有意重新实现了 Claude Code hook 协议的一个*子集*，包括相同的 `hooks.json` matcher group 结构、相同的退出码／stdout 输出约定以及相同的 command hook 执行模式。真正共享的部分位于此处；每个桥接只负责不同的部分。
 
 ## 共享内容（此处）与各方言内容（桥接）
 
-| 关注点 | 此处（`dsh-hook-protocol`） | 桥接（`dsh-hooks-claude-code` / `-codex`） |
+| 关注点 | 此处（`dsh-hook-protocol`） | 桥接（`dsh-hooks-codex`） |
 |---|---|---|
 | Matcher 校验与匹配判断 | `matcherDiagnostic(pattern, mode)` 用于解析时诊断；`matchesMatcher(pattern, query, mode)` 用于隔离的运行时匹配 | 选择自身的 `mode`（`claude` = 字面量或正则，`codex` = 始终使用正则），并拒绝带有诊断的配置组 |
 | 运行 hook | `runHook(bash, hook, opts, now)`：通过 `ctx.shell` 提供 stdin payload + env，再解码 | 构造每个事件的 stdin **payload** + 该方言的 **env** |
@@ -33,7 +33,7 @@ Hook 调用／结果记录必须位于一个尚未结束的轮次内。`UserProm
 
 ## 模型体验
 
-通过 `dsh-hooks-claude-code` 与 `dsh-hooks-codex` 间接影响；它们可以将解析后 hook 输出转为提示词上下文、已阻塞结果或 continuation 反馈。
+通过 `dsh-hooks-codex` 间接影响；它可以将解析后 hook 输出转为提示词上下文、已阻塞结果或 continuation 反馈。
 
 #### KV Cache 影响
 
