@@ -503,9 +503,6 @@ importers:
       '@deepseek-ai/dsh-goal-round-driver':
         specifier: workspace:*
         version: link:../packages/goal/goal-round-driver
-      '@deepseek-ai/dsh-hooks-claude-code':
-        specifier: workspace:*
-        version: link:../packages/hooks/hooks-claude-code
       '@deepseek-ai/dsh-hooks-codex':
         specifier: workspace:*
         version: link:../packages/hooks/hooks-codex
@@ -4598,58 +4595,6 @@ importers:
         specifier: workspace:^
         version: link:../../shell/shell
 
-  packages/hooks/hooks-claude-code:
-    dependencies:
-      '@deepseek-ai/schemastery':
-        specifier: link:../../../vendor/schemastery
-        version: link:../../../vendor/schemastery
-    devDependencies:
-      '@deepseek-ai/cordis':
-        specifier: workspace:^
-        version: link:../../../vendor/cordis
-      '@deepseek-ai/dsh-agent':
-        specifier: workspace:^
-        version: link:../../core/agent
-      '@deepseek-ai/dsh-agent-loop':
-        specifier: workspace:^
-        version: link:../../core/agent-loop
-      '@deepseek-ai/dsh-agent-loop-testkit':
-        specifier: workspace:^
-        version: link:../../test-support/agent-loop-testkit
-      '@deepseek-ai/dsh-bash-local':
-        specifier: workspace:^
-        version: link:../../shell/bash-local
-      '@deepseek-ai/dsh-hook-protocol':
-        specifier: workspace:^
-        version: link:../hook-protocol
-      '@deepseek-ai/dsh-invariants':
-        specifier: workspace:^
-        version: link:../../runtime-diagnostics/invariants
-      '@deepseek-ai/dsh-llm':
-        specifier: workspace:^
-        version: link:../../llm/llm
-      '@deepseek-ai/dsh-session':
-        specifier: workspace:^
-        version: link:../../core/session
-      '@deepseek-ai/dsh-session-persistence':
-        specifier: workspace:^
-        version: link:../../session/session-persistence
-      '@deepseek-ai/dsh-session-persistence-jsonl':
-        specifier: workspace:^
-        version: link:../../session/session-persistence-jsonl
-      '@deepseek-ai/dsh-shell':
-        specifier: workspace:^
-        version: link:../../shell/shell
-      '@deepseek-ai/dsh-subagent':
-        specifier: workspace:^
-        version: link:../../subagent/subagent
-      '@deepseek-ai/dsh-subprocess-local':
-        specifier: workspace:^
-        version: link:../../subprocess/subprocess-local
-      '@deepseek-ai/dsh-tools':
-        specifier: workspace:^
-        version: link:../../core/tools
-
   packages/hooks/hooks-codex:
     dependencies:
       '@deepseek-ai/schemastery':
@@ -8415,9 +8360,6 @@ importers:
       '@deepseek-ai/dsh-hook-protocol':
         specifier: workspace:^
         version: link:../../packages/hooks/hook-protocol
-      '@deepseek-ai/dsh-hooks-claude-code':
-        specifier: workspace:^
-        version: link:../../packages/hooks/hooks-claude-code
       '@deepseek-ai/dsh-hooks-codex':
         specifier: workspace:^
         version: link:../../packages/hooks/hooks-codex

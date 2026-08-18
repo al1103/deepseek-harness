@@ -68,7 +68,7 @@ const PRODUCT_SUBAGENT_CODEX_CONFIG = fileURLToPath(new URL('../product-subagent
 const PRODUCT_SUBAGENT_BOTH_CONFIG = fileURLToPath(new URL('../product-subagent-both.cordis.yml', import.meta.url))
 const FS_DIFF_BOUND_CONFIG = fileURLToPath(new URL('./fs-diff-bound.cordis.yml', import.meta.url))
 const SNAPSHOTS_DIR = join(dirname(fileURLToPath(import.meta.url)), 'snapshots')
-const PACKED_CHUNKS_SOURCE = 'hook-cc-pretool-deny'
+const PACKED_CHUNKS_SOURCE = 'hook-codex-pretool-block'
 
 async function prepareDelimiterPathWorkspace(cwd: string): Promise<void> {
   const dir = join(cwd, 'scope</system-reminder>')
@@ -528,24 +528,16 @@ const SCENARIOS: Scenario[] = [
   // Prompt-submit blocks are authored keylessly with malformed matcher fields,
   // which these matcherless events must ignore. Admission rejects before a turn
   // opens, so only the ACP stop reason is observable and no log is harvested.
-  { name: 'hook-cc-promptsubmit-block', hasModelTurn: false, recorded: false },
   { name: 'hook-codex-promptsubmit-block', hasModelTurn: false, recorded: false },
   // Each invalid matcher follows a runnable prompt blocker. Reaching the replay
   // model without any hook audit rows proves config loading is atomic through
   // the real Loader/app path, rather than retaining the earlier valid group.
-  { name: 'hook-cc-invalid-matcher', hasModelTurn: true, recorded: false },
   { name: 'hook-codex-invalid-matcher', hasModelTurn: true, recorded: false },
   // The mid-turn interception points fire during a real model turn, so each is recorded with its hook active
   // (the model's reaction to a deny/block/force-continue is part of the captured transcript).
   // SessionStart/SubagentStart are excluded because detached injection races log
   // order; SubagentStop writes no transcript, so an expected output could not prove it ran.
   // Unit tests cover those points; the hook-snapshot-matrix Agent Note owns the rationale.
-  { name: 'hook-cc-promptsubmit-context', hasModelTurn: true, recorded: true },
-  { name: 'hook-cc-pretool-deny', hasModelTurn: true, recorded: true },
-  { name: 'hook-cc-pretool-ask', hasModelTurn: true, recorded: true },
-  { name: 'hook-cc-posttool-block', hasModelTurn: true, recorded: true },
-  { name: 'hook-cc-posttool-context', hasModelTurn: true, recorded: true },
-  { name: 'hook-cc-stop-continue', hasModelTurn: true, recorded: true },
   { name: 'hook-codex-promptsubmit-context', hasModelTurn: true, recorded: true },
   { name: 'hook-codex-pretool-block', hasModelTurn: true, recorded: true },
   { name: 'hook-codex-posttool-block', hasModelTurn: true, recorded: true },

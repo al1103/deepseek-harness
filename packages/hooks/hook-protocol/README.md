@@ -2,13 +2,13 @@
 
 English | [中文](README.zh.md)
 
-The **shared core** of the Claude Code / Codex hook wire protocol. NOT a cordis plugin — it registers nothing and injects nothing. It is a **library** of dialect-neutral primitives the two bridge plugins (`@deepseek-ai/dsh-hooks-claude-code`, `@deepseek-ai/dsh-hooks-codex`) import so neither re-implements the identical halves of the protocol.
+The **shared core** of the Codex hook wire protocol. NOT a cordis plugin — it registers nothing and injects nothing. It is a **library** of dialect-neutral primitives consumed by the Codex bridge plugin (`@deepseek-ai/dsh-hooks-codex`).
 
 Codex deliberately reimplements a *subset* of the Claude Code hook protocol — the same `hooks.json` matcher-group shape, the same exit-code/stdout output contract, the same command-hook execution model. The genuinely-shared parts live here; each bridge owns only what differs.
 
 ## What's shared (here) vs. per-dialect (the bridges)
 
-| Concern | Here (`dsh-hook-protocol`) | The bridge (`dsh-hooks-claude-code` / `-codex`) |
+| Concern | Here (`dsh-hook-protocol`) | The bridge (`dsh-hooks-codex`) |
 |---|---|---|
 | Matcher validation + test | `matcherDiagnostic(pattern, mode)` for parse-time diagnostics; `matchesMatcher(pattern, query, mode)` for contained runtime matching | picks its `mode` (`claude` = literal-or-regex, `codex` = always regex) and rejects a config group carrying a diagnostic |
 | Run a hook | `runHook(bash, hook, opts, now)` — stdin payload + env via `ctx.shell`, decode | builds the per-event stdin **payload** + the dialect's **env** |
@@ -33,7 +33,7 @@ Hook invocation/result records must sit inside an open turn. `UserPromptSubmit`,
 
 ## Model Experience
 
-Indirectly, through `dsh-hooks-claude-code` and `dsh-hooks-codex`, which can turn parsed hook output into prompt context, blocked outcomes, or continuation feedback.
+Indirectly, through `dsh-hooks-codex`, which can turn parsed hook output into prompt context, blocked outcomes, or continuation feedback.
 
 #### KV Cache effect
 

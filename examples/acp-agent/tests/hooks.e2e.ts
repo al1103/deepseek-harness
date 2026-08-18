@@ -12,7 +12,7 @@ import {
 import { cleanupAcpExampleTest } from './cleanup.ts'
 
 /**
- * With-key e2e for the Claude hook bridge. The process-level `./hooks.json` is
+ * With-key e2e for the Codex hook bridge. The process-level `./codex-hooks.json` is
  * resolved from a temporary launch cwd and blocks all PreToolUse calls; a real
  * model is asked to write there, and absence of the file proves interception.
  * The test owns and disposes the ACP subprocess.
@@ -35,12 +35,12 @@ afterEach(async () => {
   await cleanupAcpExampleTest(ownedSpawned, ownedWorkdir)
 })
 
-describe.skipIf(!process.env.DEEPSEEK_API_KEY)('acp-agent e2e: a PreToolUse hook blocks bash (real model)', () => {
+describe.skipIf(!process.env.DEEPSEEK_API_KEY)('acp-agent e2e: a Codex PreToolUse hook blocks bash (real model)', () => {
   it('denies every bash command, so the requested file is never written (verified on disk)', async () => {
     workdir = await mkdtemp(join(tmpdir(), 'acp-hooks-e2e-'))
     // `configPath` is process-relative, so placing the match-all hook in the
     // launch cwd selects it; hook commands themselves run in the session cwd.
-    await writeFile(join(workdir, 'hooks.json'), JSON.stringify({
+    await writeFile(join(workdir, 'codex-hooks.json'), JSON.stringify({
       hooks: { PreToolUse: [{ hooks: [{ type: 'command', command: 'echo "bash blocked by policy" >&2; exit 2' }] }] },
     }))
 
